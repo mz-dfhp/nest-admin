@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Prisma } from '@prisma/client';
+import { AuthService } from 'src/auth/auth.service';
 
 export interface IFindAllQuery {
   pageNo: number;
@@ -10,7 +11,21 @@ export interface IFindAllQuery {
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private auth: AuthService,
+  ) {}
+
+  async login(dto: Omit<Prisma.UserCreateInput, 'avatar'>) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        username: dto.username,
+        password: dto.password,
+      },
+    });
+    return this.auth.generateJwt(user);
+  }
+
   create(dto: Prisma.UserCreateInput) {
     return this.prisma.user.create({
       data: dto,
