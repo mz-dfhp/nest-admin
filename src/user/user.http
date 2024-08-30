@@ -34,6 +34,6 @@
 #     "password" : "123456"
 # }
 
-GET       http://localhost:3000/user/info HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyNDgzNjE0NCwiZXhwIjoxNzI0OTIyNTQ0fQ.eoBHSe2F1GvjGKkwtQwaBVUsuf6XyGyXRWPyIllOmLQ
+# GET       http://localhost:3000/user/info HTTP/1.1
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyNTAwMjY1MCwiZXhwIjoxNzI1MDg5MDUwfQ.dHojjdfgPkg1gb8xgvDcauUcuksbpuIOwti5Y5ztpuI

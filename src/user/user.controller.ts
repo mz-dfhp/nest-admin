@@ -7,12 +7,11 @@ import {
   Param,
   Delete,
   Query,
-  Req,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { Prisma } from '@prisma/client';
 import { IFindAllQuery, UserService } from './user.service';
 import { Public } from 'src/auth/auth.decorator';
+import { AuthUser } from './user.decorator';
 
 @Controller('user')
 export class UserController {
@@ -25,8 +24,8 @@ export class UserController {
   }
 
   @Get('/info')
-  userinfo(@Req() req: Request) {
-    return this.userService.findOne(req.user.id);
+  userinfo(@AuthUser() dto: Prisma.UserAvgAggregateOutputType) {
+    return this.userService.findOne(dto.id);
   }
 
   @Post()
