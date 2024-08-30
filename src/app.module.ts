@@ -11,11 +11,13 @@ import { AuthGuard } from 'src/auth/auth.guard';
 
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { UploadModule } from './upload/upload.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({ rootPath: resolve(process.cwd(), 'static') }),
     UserModule,
     AuthModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [
