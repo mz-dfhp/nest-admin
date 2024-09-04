@@ -7,13 +7,14 @@ import {
   Param,
   Delete,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { UserService } from './user.service';
 import { Public } from 'src/auth/auth.decorator';
 import { AuthUser } from './user.decorator';
-import { ApiTags } from '@nestjs/swagger';
-import { UserLoginDto, CreateUserDto, UserIdDto } from './user.dto';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { UserLoginDto, CreateUserDto, UpdateUserDto } from './user.dto';
 
 @ApiTags('Users')
 @Controller('user')
@@ -26,9 +27,10 @@ export class UserController {
     return this.userService.login(dto);
   }
 
+  @ApiBearerAuth()
   @Get('/info')
-  userinfo(@AuthUser('id') dto: UserIdDto) {
-    return this.userService.findOne(dto.id);
+  userinfo(@AuthUser('id') id: number) {
+    return this.userService.findOne(id);
   }
 
   @Post()
@@ -42,17 +44,17 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: CreateUserDto) {
+  update(@Param('id', ParseIntPipe) id: string, @Body() dto: UpdateUserDto) {
     return this.userService.update(+id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.remove(id);
   }
 }

@@ -26,14 +26,14 @@
 # DELETE       http://localhost:3000/user/10 HTTP/1.1
 # Content-Type: application/json
 
-# POST       http://localhost:3000/user/login HTTP/1.1
-# Content-Type: application/json
+POST       http://localhost:3000/user/login HTTP/1.1
+Content-Type: application/json
 
-# {
-#     "username" : "admin",
-#     "password" : "123456"
-# }
+{
+    "username" : "admin",
+    "password" : "12"
+}
 
 # GET       http://localhost:3000/user/info HTTP/1.1
 # Content-Type: application/json
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyNTAwMjY1MCwiZXhwIjoxNzI1MDg5MDUwfQ.dHojjdfgPkg1gb8xgvDcauUcuksbpuIOwti5Y5ztpuI
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyNTQzMjUxNCwiZXhwIjoxNzI1NTE4OTE0fQ.FM4-rYg1dpNP9jEtZtZMqd9LZ8dBfDAaMyy5PRm35LU
