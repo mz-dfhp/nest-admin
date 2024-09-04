@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { IFindAllQuery, UserService } from './user.service';
+import { TFindAllQuery, UserService } from './user.service';
 import { Public } from 'src/auth/auth.decorator';
 import { AuthUser } from './user.decorator';
 
@@ -34,7 +34,7 @@ export class UserController {
   }
 
   @Get()
-  findAll(@Query() query: IFindAllQuery) {
+  findAll(@Query() query: TFindAllQuery) {
     return this.userService.findAll(query);
   }
 

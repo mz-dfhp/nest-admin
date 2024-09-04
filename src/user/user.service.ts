@@ -3,11 +3,11 @@ import { PrismaService } from 'src/prisma.service';
 import { Prisma } from '@prisma/client';
 import { AuthService } from 'src/auth/auth.service';
 
-export interface IFindAllQuery {
+export type TFindAllQuery = {
   pageNo: number;
   pageSize: number;
   username?: string;
-}
+};
 
 @Injectable()
 export class UserService {
@@ -32,7 +32,7 @@ export class UserService {
     });
   }
 
-  async findAll(query: IFindAllQuery) {
+  async findAll(query: TFindAllQuery) {
     const pageNo = +query.pageNo || 1;
     const pageSize = +query.pageSize || 10;
     const skip = (pageNo - 1) * pageSize;
