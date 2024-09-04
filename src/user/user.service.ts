@@ -3,12 +3,6 @@ import { PrismaService } from 'src/prisma.service';
 import { Prisma } from '@prisma/client';
 import { AuthService } from 'src/auth/auth.service';
 
-export type TFindAllQuery = {
-  pageNo: number;
-  pageSize: number;
-  username?: string;
-};
-
 @Injectable()
 export class UserService {
   constructor(
@@ -32,13 +26,13 @@ export class UserService {
     });
   }
 
-  async findAll(query: TFindAllQuery) {
-    const pageNo = +query.pageNo || 1;
-    const pageSize = +query.pageSize || 10;
+  async findAll(dto: ListParams & Pick<Prisma.UserCreateInput, 'username'>) {
+    const pageNo = +dto.pageNo || 1;
+    const pageSize = +dto.pageSize || 10;
     const skip = (pageNo - 1) * pageSize;
     const take = pageSize;
     const where: Prisma.UserWhereInput = {
-      username: { contains: query.username },
+      username: { contains: dto.username },
     };
     const total = await this.prisma.user.count({
       where,
