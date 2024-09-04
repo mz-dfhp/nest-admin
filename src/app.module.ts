@@ -6,7 +6,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { LoggerMiddleware } from 'middleware/logger';
+import { LoggerMiddleware } from 'src/common/middleware/logger';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 import { UserModule } from './user/user.module';

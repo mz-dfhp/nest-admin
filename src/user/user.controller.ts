@@ -12,24 +12,27 @@ import { Prisma } from '@prisma/client';
 import { UserService } from './user.service';
 import { Public } from 'src/auth/auth.decorator';
 import { AuthUser } from './user.decorator';
+import { ApiTags } from '@nestjs/swagger';
+import { UserLoginDto, CreateUserDto, UserIdDto } from './user.dto';
 
+@ApiTags('Users')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Public()
   @Post('/login')
-  login(@Body() dto: Prisma.UserCreateInput) {
+  login(@Body() dto: UserLoginDto) {
     return this.userService.login(dto);
   }
 
   @Get('/info')
-  userinfo(@AuthUser() dto: Prisma.UserAvgAggregateOutputType) {
+  userinfo(@AuthUser('id') dto: UserIdDto) {
     return this.userService.findOne(dto.id);
   }
 
   @Post()
-  create(@Body() dto: Prisma.UserCreateInput) {
+  create(@Body() dto: CreateUserDto) {
     return this.userService.create(dto);
   }
 
@@ -44,7 +47,7 @@ export class UserController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: Prisma.UserCreateInput) {
+  update(@Param('id') id: string, @Body() dto: CreateUserDto) {
     return this.userService.update(+id, dto);
   }
 

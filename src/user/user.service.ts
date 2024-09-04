@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Prisma } from '@prisma/client';
 import { AuthService } from 'src/auth/auth.service';
+import { UserLoginDto, CreateUserDto } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -10,7 +11,7 @@ export class UserService {
     private auth: AuthService,
   ) {}
 
-  async login(dto: Omit<Prisma.UserCreateInput, 'avatar'>) {
+  async login(dto: UserLoginDto) {
     const user = await this.prisma.user.findUnique({
       where: {
         username: dto.username,
@@ -20,13 +21,13 @@ export class UserService {
     return this.auth.generateJwt(user);
   }
 
-  create(dto: Prisma.UserCreateInput) {
+  create(dto: CreateUserDto) {
     return this.prisma.user.create({
       data: dto,
     });
   }
 
-  async findAll(dto: ListParams & Pick<Prisma.UserCreateInput, 'username'>) {
+  async findAll(dto: ListParams & { username: string }) {
     const pageNo = +dto.pageNo || 1;
     const pageSize = +dto.pageSize || 10;
     const skip = (pageNo - 1) * pageSize;
@@ -56,7 +57,7 @@ export class UserService {
     });
   }
 
-  update(id: number, dto: Prisma.UserCreateInput) {
+  update(id: number, dto: CreateUserDto) {
     return this.prisma.user.update({
       where: {
         id,
